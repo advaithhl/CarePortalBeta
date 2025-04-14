@@ -18,9 +18,11 @@ export default function Confirmation() {
         <li>
           <strong>Care Type:</strong> {data.careType}
         </li>
-        <li>
-          <strong>Zip Code:</strong> {data.zipCode}
-        </li>
+        {data.careType !== "Day Care" && data.zipCode && (
+          <li>
+            <strong>Zip Code:</strong> {data.zipCode}
+          </li>
+        )}
       </ul>
       <div className="mt-4">
         <button

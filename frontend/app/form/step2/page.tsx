@@ -21,7 +21,11 @@ export default function StepTwo() {
     }
 
     setFormValues({ careType });
-    router.push("/form/step3");
+    if (careType === "Day Care") {
+      router.push("/form/confirm");
+    } else {
+      router.push("/form/step3");
+    }
   };
 
   return (
