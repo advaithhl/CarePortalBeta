@@ -1,1 +1,2 @@
 import amplify
+import dynamodb
