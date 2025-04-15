@@ -2,7 +2,7 @@ import json
 import pulumi_aws as aws
 from pulumi import FileArchive
 import dynamodb
-
+from amplify import example
 
 backend_role = aws.iam.Role(
     "backendAssumeRole",
@@ -54,3 +54,17 @@ care_portal_lambda = aws.lambda_.Function(
     architectures=["arm64"] # change to variable if needed.
 )
 
+care_portal_lambda_function_url = aws.lambda_.FunctionUrl(
+    f"{lambda_name}FunctionUrl",
+    function_name=care_portal_lambda.name,
+    authorization_type="NONE",
+    cors=aws.lambda_.FunctionUrlCorsArgs(
+        allow_credentials=False,
+        allow_headers=["Content-Type"],
+        allow_methods=["GET"],
+        allow_origins=[
+            example.default_domain.apply(lambda domain: f"https://prod.{domain}")
+        ],
+        expose_headers=["*"]
+    )
+)

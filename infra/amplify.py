@@ -14,3 +14,5 @@ example_prod_branch = aws.amplify.Branch("careportal_frontend_prod_branch",
     stage="PRODUCTION",
     description="CarePortalBeta frontend production"
 )
+
+__all__ = ["example"]
