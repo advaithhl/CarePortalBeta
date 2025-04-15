@@ -33,7 +33,9 @@ function SearchStatus() {
 }
 
 export default function StatusPage() {
-  <Suspense>
-    <SearchStatus />
-  </Suspense>
+  return (
+    <Suspense>
+      <SearchStatus />
+    </Suspense>
+  );
 }
