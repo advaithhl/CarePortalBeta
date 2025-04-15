@@ -3,6 +3,8 @@ import { useFormContext } from "@/app/context/FormContext";
 import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { Box, Typography, TextField, Button, Paper } from "@mui/material";
+import { Person } from "@mui/icons-material";
 
 const nameSchema = z.string().min(3, "Name must be at least 3 characters long");
 
@@ -25,24 +27,36 @@ export default function StepOne() {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Step 1: Patient Name</h2>
-      <input
-        className="border p-2 w-full"
-        type="text"
-        placeholder="Enter patient's name"
-        value={patientName}
-        onChange={(e) => setPatientName(e.target.value)}
-      />
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      <div className="mt-4">
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+    <Box className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <Paper elevation={3} className="w-full max-w-md p-6 rounded-2xl">
+        <Box className="flex items-center gap-2 mb-6">
+          <Person color="primary" />
+          <Typography variant="h5" component="h2" fontWeight={600}>
+            Step 1: Patient Name
+          </Typography>
+        </Box>
+
+        <TextField
+          fullWidth
+          label="Enter patient's full name"
+          variant="outlined"
+          value={patientName}
+          onChange={(e) => setPatientName(e.target.value)}
+          error={!!error}
+          helperText={error}
+          margin="normal"
+        />
+
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
           onClick={handleNext}
+          className="mt-4 rounded-xl"
         >
           Next
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Paper>
+    </Box>
   );
 }
