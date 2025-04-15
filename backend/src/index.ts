@@ -1,50 +1,21 @@
 import { Hono } from "hono";
 import { handle } from "hono/aws-lambda";
 
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
+
 const app = new Hono();
 
-const facilities = [
-  {
-    name: "A",
-    careType: "Stationary",
-    zipCodeStart: 10000,
-    zipCodeEnd: 14999,
-    zipCode: 12000,
-    capacity: "Full",
-  },
-  {
-    name: "B",
-    careType: "Stationary",
-    zipCodeStart: 15000,
-    zipCodeEnd: 19999,
-    zipCode: 17000,
-    capacity: "Available",
-  },
-  {
-    name: "C",
-    careType: "Ambulatory",
-    zipCodeStart: 20000,
-    zipCodeEnd: 24999,
-    zipCode: 22000,
-    capacity: "Full",
-  },
-  {
-    name: "D",
-    careType: "Ambulatory",
-    zipCodeStart: 25000,
-    zipCodeEnd: 29999,
-    zipCode: 27000,
-    capacity: "Available",
-  },
-  {
-    name: "E",
-    careType: "Stationary & Ambulatory",
-    zipCodeStart: 10000,
-    zipCodeEnd: 24999,
-    zipCode: 18000,
-    capacity: "Available",
-  },
-];
+const client = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+
+type Facility = {
+  name: string;
+  careType: string;
+  zipCodeStart: number;
+  zipCodeEnd: number;
+  zipCode: number;
+  capacity: "Full" | "Available";
+};
 
 app.post("/submitForm", async (c) => {
   const { careType, zipCode } = await c.req.json();
@@ -54,6 +25,11 @@ app.post("/submitForm", async (c) => {
   if (careTypeNormalized === "day care") {
     return c.json({ message: "No matching facility (day care not supported)" });
   }
+
+  const result = await client.send(
+    new ScanCommand({ TableName: "facilities" })
+  );
+  const facilities = result.Items as Facility[];
 
   // Step 1: Match care type and availability
   const availableFacilities = facilities

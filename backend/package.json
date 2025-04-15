@@ -4,7 +4,7 @@
   "scripts": {
     "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
     "zip": "zip -j lambda.zip dist/index.js",
-    "update": "aws lambda update-function-code --zip-file fileb://lambda.zip --function-name testHono",
+    "update": "aws lambda update-function-code --zip-file fileb://lambda.zip --function-name carePortalBetaBackend",
     "deploy": "run-s build zip update"
   },
   "devDependencies": {
@@ -12,6 +12,8 @@
     "npm-run-all2": "^6.2.0"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.788.0",
+    "@aws-sdk/lib-dynamodb": "^3.789.0",
     "hono": "^4.7.6"
   }
 }
