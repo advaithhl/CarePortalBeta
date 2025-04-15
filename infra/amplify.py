@@ -1,3 +1,4 @@
+from pulumi import export
 import pulumi_aws as aws
 
 example = aws.amplify.App("careportal_frontend",
@@ -14,5 +15,7 @@ example_prod_branch = aws.amplify.Branch("careportal_frontend_prod_branch",
     stage="PRODUCTION",
     description="CarePortalBeta frontend production"
 )
+
+export("amplify_app_id", example.id)
 
 __all__ = ["example"]

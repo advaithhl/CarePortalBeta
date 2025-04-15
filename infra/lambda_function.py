@@ -1,6 +1,6 @@
 import json
 import pulumi_aws as aws
-from pulumi import FileArchive
+from pulumi import export, FileArchive
 import dynamodb
 from amplify import example
 
@@ -68,3 +68,5 @@ care_portal_lambda_function_url = aws.lambda_.FunctionUrl(
         expose_headers=["*"]
     )
 )
+
+export("backend_url", care_portal_lambda_function_url.function_url)
