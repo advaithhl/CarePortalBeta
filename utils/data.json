@@ -1,0 +1,64 @@
+{
+  "facilities": [
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "A" },
+          "careType": { "S": "Stationary" },
+          "zipCodeStart": { "N": "10000" },
+          "zipCodeEnd": { "N": "14999" },
+          "zipCode": { "N": "12000" },
+          "capacity": { "S": "Full" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "B" },
+          "careType": { "S": "Stationary" },
+          "zipCodeStart": { "N": "15000" },
+          "zipCodeEnd": { "N": "19999" },
+          "zipCode": { "N": "17000" },
+          "capacity": { "S": "Available" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "C" },
+          "careType": { "S": "Ambulatory" },
+          "zipCodeStart": { "N": "20000" },
+          "zipCodeEnd": { "N": "24999" },
+          "zipCode": { "N": "22000" },
+          "capacity": { "S": "Full" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "D" },
+          "careType": { "S": "Ambulatory" },
+          "zipCodeStart": { "N": "25000" },
+          "zipCodeEnd": { "N": "29999" },
+          "zipCode": { "N": "27000" },
+          "capacity": { "S": "Available" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "E" },
+          "careType": { "S": "Stationary & Ambulatory" },
+          "zipCodeStart": { "N": "10000" },
+          "zipCodeEnd": { "N": "24999" },
+          "zipCode": { "N": "18000" },
+          "capacity": { "S": "Available" }
+        }
+      }
+    }
+  ]
+}
