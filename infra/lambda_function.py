@@ -2,7 +2,7 @@ import json
 import pulumi_aws as aws
 from pulumi import export, FileArchive
 import dynamodb
-from amplify import example
+from amplify import careportal_frontend
 
 backend_role = aws.iam.Role(
     "backendAssumeRole",
@@ -43,7 +43,7 @@ backend_basic_execution = aws.iam.RolePolicyAttachment(
 lambda_name = "carePortalBetaBackend"
 
 # Create the Lambda function
-care_portal_lambda = aws.lambda_.Function(
+careportal_lambda = aws.lambda_.Function(
     lambda_name,
     name=lambda_name,
     role=backend_role.arn,
@@ -54,19 +54,19 @@ care_portal_lambda = aws.lambda_.Function(
     architectures=["arm64"] # change to variable if needed.
 )
 
-care_portal_lambda_function_url = aws.lambda_.FunctionUrl(
+careportal_lambda_function_url = aws.lambda_.FunctionUrl(
     f"{lambda_name}FunctionUrl",
-    function_name=care_portal_lambda.name,
+    function_name=careportal_lambda.name,
     authorization_type="NONE",
     cors=aws.lambda_.FunctionUrlCorsArgs(
         allow_credentials=False,
         allow_headers=["Content-Type"],
         allow_methods=["POST"],
         allow_origins=[
-            example.default_domain.apply(lambda domain: f"https://prod.{domain}")
+            careportal_frontend.default_domain.apply(lambda domain: f"https://prod.{domain}")
         ],
         expose_headers=["*"]
     )
 )
 
-export("backend_url", care_portal_lambda_function_url.function_url)
+export("backend_url", careportal_lambda_function_url.function_url)
