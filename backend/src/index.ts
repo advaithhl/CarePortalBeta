@@ -25,7 +25,7 @@ app.post("/submitForm", async (c) => {
   if (careTypeNormalized === "day care") {
     return c.json({
       status: 404,
-      message: "No matching facility (day care not supported)",
+      message: "Sorry! We do not support Day Care yet.",
     });
   }
 
@@ -58,7 +58,7 @@ app.post("/submitForm", async (c) => {
   if (matchingFacility) {
     return c.json({
       status: 200,
-      message: "Facility matched",
+      message: "Facility matched in your vicinity.",
       facility: matchingFacility,
     });
   }
@@ -69,14 +69,14 @@ app.post("/submitForm", async (c) => {
   if (forwardedFacility) {
     return c.json({
       status: 200,
-      message: "Facility matched via forwarding",
+      message: "Facility matched, but may be far away.",
       facility: forwardedFacility,
     });
   }
 
   return c.json({
     status: 404,
-    message: "No matching facility found (too far or none available)",
+    message: "No matching facility found.",
   });
 });
 
