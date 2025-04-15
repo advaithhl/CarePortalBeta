@@ -7,9 +7,9 @@ export default function Confirmation() {
   const router = useRouter();
 
   const handleSubmit = async () => {
-    // hard coding url for testing
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     const response = await fetch(
-      "https://i2sfotrhnnw7xlzwq3xsqeed5y0srwia.lambda-url.eu-central-1.on.aws/submitForm",
+      `${backendUrl}/submitForm`,
       {
         method: "POST",
         body: JSON.stringify(data),
