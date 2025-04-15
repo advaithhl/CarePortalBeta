@@ -50,6 +50,7 @@ care_portal_lambda = aws.lambda_.Function(
     runtime="nodejs18.x",
     handler="index.handler",
     code=FileArchive("../backend/lambda.zip"),
-    timeout=10
+    timeout=10,
+    architectures=["arm64"] # change to variable if needed.
 )
 
