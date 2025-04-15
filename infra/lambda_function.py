@@ -26,7 +26,7 @@ backend_policy = aws.iam.RolePolicy(
         "Statement": [{
             "Effect": "Allow",
             "Action": [
-                "dynamodb:GetItem"
+                "dynamodb:Scan"
             ],
             "Resource": arn
         }]
