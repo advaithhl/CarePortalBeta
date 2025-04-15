@@ -1,12 +1,39 @@
 "use client";
 import { useFormContext } from "@/app/context/FormContext";
+import { useRouter } from "next/navigation";
 
 export default function Confirmation() {
   const { data } = useFormContext();
+  const router = useRouter();
 
-  const handleSubmit = () => {
-    // use fetch API to make call to backend.
-  }
+  const handleSubmit = async () => {
+    // hard coding url for testing
+    const response = await fetch(
+      "https://i2sfotrhnnw7xlzwq3xsqeed5y0srwia.lambda-url.eu-central-1.on.aws/submitForm",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.ok && result.facility) {
+      const params = new URLSearchParams({
+        message: result.message,
+        name: result.facility.name,
+        zipCode: result.facility.zipCode.toString(),
+        careType: result.facility.careType,
+      });
+      router.push(`/status?${params.toString()}`);
+    } else {
+      const params = new URLSearchParams({ message: result.message });
+      router.push(`/status?${params.toString()}`);
+    }
+  };
 
   return (
     <div className="p-4">
