@@ -61,7 +61,7 @@ care_portal_lambda_function_url = aws.lambda_.FunctionUrl(
     cors=aws.lambda_.FunctionUrlCorsArgs(
         allow_credentials=False,
         allow_headers=["Content-Type"],
-        allow_methods=["GET"],
+        allow_methods=["POST"],
         allow_origins=[
             example.default_domain.apply(lambda domain: f"https://prod.{domain}")
         ],
