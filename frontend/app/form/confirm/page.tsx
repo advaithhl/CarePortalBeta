@@ -9,7 +9,7 @@ export default function Confirmation() {
   const handleSubmit = async () => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     const response = await fetch(
-      `${backendUrl}/submitForm`,
+      `${backendUrl}submitForm`,
       {
         method: "POST",
         body: JSON.stringify(data),
