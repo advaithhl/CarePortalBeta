@@ -23,7 +23,10 @@ app.post("/submitForm", async (c) => {
   const careTypeNormalized = careType.toLowerCase();
 
   if (careTypeNormalized === "day care") {
-    return c.json({ message: "No matching facility (day care not supported)" });
+    return c.json({
+      status: 404,
+      message: "No matching facility (day care not supported)",
+    });
   }
 
   const result = await client.send(
@@ -53,7 +56,11 @@ app.post("/submitForm", async (c) => {
   );
 
   if (matchingFacility) {
-    return c.json({ message: "Facility matched", facility: matchingFacility });
+    return c.json({
+      status: 200,
+      message: "Facility matched",
+      facility: matchingFacility,
+    });
   }
 
   // Step 3: If no one serves the zip but some are still close, forward
@@ -61,12 +68,14 @@ app.post("/submitForm", async (c) => {
 
   if (forwardedFacility) {
     return c.json({
+      status: 200,
       message: "Facility matched via forwarding",
       facility: forwardedFacility,
     });
   }
 
   return c.json({
+    status: 404,
     message: "No matching facility found (too far or none available)",
   });
 });
