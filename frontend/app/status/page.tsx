@@ -1,7 +1,8 @@
 "use client";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function StatusPage() {
+function SearchStatus() {
   const searchParams = useSearchParams();
 
   const message = searchParams.get("message");
@@ -29,4 +30,10 @@ export default function StatusPage() {
       )}
     </div>
   );
+}
+
+export default function StatusPage() {
+  <Suspense>
+    <SearchStatus />
+  </Suspense>
 }
